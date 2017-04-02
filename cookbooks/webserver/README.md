@@ -1,4 +1,4 @@
 # webserver
 
-TODO: Enter the cookbook description here.
-
+This cookbook installs and manages the Apache2 Web Server and configuration on
+managed nodes.

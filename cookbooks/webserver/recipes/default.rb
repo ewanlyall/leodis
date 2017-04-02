@@ -22,6 +22,8 @@ httpd_service 'leodis' do
   instance 'leodis'
   contact 'webmasters@leodis.ac.uk'
   servername 'localhost'
+  run_user 'www-data'
+  run_group 'www-data'
   timeout '300'
   keepalive true
   keepalivetimeout '5'
