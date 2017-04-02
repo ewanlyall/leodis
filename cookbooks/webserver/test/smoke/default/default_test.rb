@@ -4,10 +4,6 @@
 
 describe 'webserver::default' do
 
-# it 'updates all packages'
-#  expect()
-# end
-
 #  it 'enables the firewall and opens port 22 and 80' do
 #    expect(firewall)
 #  end

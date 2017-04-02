@@ -3,7 +3,7 @@
 # Recipe:: default
 #
 
-# Update the apt cache
+# Update the apt cache and keep it up to date
 include_recipe "apt::default"
 
 # create the www-data user group
@@ -17,7 +17,7 @@ user 'www-data' do
   shell '/bin/nologin'
 end
 
-# install the apache2 package
+# install the apache2 package and configure the leodis web service.
 httpd_service 'leodis' do
   instance 'leodis'
   contact 'webmasters@leodis.ac.uk'
@@ -32,6 +32,8 @@ httpd_service 'leodis' do
   action [:create, :start]
 end
 
+# install the proxy_http and proxy apache modules required for the proxypass
+# vhost configuration
 httpd_module 'proxy_http' do
   instance 'leodis'
   module_name 'proxy_http'
@@ -44,6 +46,8 @@ httpd_module 'proxy' do
   action :create
 end
 
+# create the leodis vhost configuration and restart apache.
+# we could generalise the template further and use attributes.
 httpd_config 'leodis' do
   config_name 'leodis-vhost'
   instance 'leodis'
