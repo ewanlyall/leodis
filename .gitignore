@@ -2,6 +2,7 @@
 *.crt
 .kitchen
 .vagrant
+.delivery
 nodes
 metadata.json
 .rake_test_cache
