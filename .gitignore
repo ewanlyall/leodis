@@ -1,0 +1,7 @@
+*.pem
+*.crt
+.kitchen
+.vagrant
+nodes
+metadata.json
+.rake_test_cache
