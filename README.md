@@ -80,6 +80,21 @@ suite of unit tests. Application code and other binaries should not be stored in
 chef, rather pulled directly from source control or a repository such as
 artifactory. *Outside the scope of this scenario.*
 
+Solution
+========
+The included cookbooks perform the following functionality:
+1. Install the chef client and configure it to run every 30mins (1800 secs)
+2. Deletes the chef validation key for security purposes
+3. Updates the apt cache and configures it to be updated daily
+4. Adds the www-data user and group
+5. Installs the Apache2 package to the default location and configures the web
+server
+6. Installs the `proxy` and `proxy-http` Apache modules
+7. Creates the website's vhost configuration and restarts Apache.
+8. Installs node and the `express` and `express-handlebars` npm modules in
+order to run the web service backend. *Note that the node app itself isn't
+being managed by this chef cookbook*
+
 Usage
 =====
 Testing
@@ -89,5 +104,18 @@ following:
 ```
 kitchen test
 ```
-This will start an Ubuntu 12.04.5 Vagrant VM, use chef zero to provision it then
-perform the tests as per `tests/smoke/default/*.rb`.
+This will start an Ubuntu 12.04.5 (or optionally 16.04) Vagrant VM, use chef
+zero to provision it, then perform the tests as per `tests/smoke/default/*.rb`.
+
+Running
+-------
+Assuming the cookbook, dependencies and roles have been uploaded to a chef
+server that's accessible from the internet (such as Hosted Chef). Run:
+```
+knife bootstrap <node_address> \
+                -x ubuntu \
+                -i <path_to_private_key.pem> \
+                --sudo \
+                -N leodis-web-server \
+                -r role['webserver']
+```

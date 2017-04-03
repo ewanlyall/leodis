@@ -5,6 +5,7 @@ license 'all_rights'
 description 'Installs/Configures webserver'
 version '0.1.0'
 
+depends 'chef-client', '~> 7.2.1'
 depends 'apt', '~> 6.0.1'
 depends 'httpd', '~> 0.4.5'
 depends 'nodejs', '~> 3.0.0'
