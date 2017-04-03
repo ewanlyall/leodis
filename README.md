@@ -42,7 +42,8 @@ action:
   Ubuntu 16.04 LTS distribution. It will likely be faster than upgrading
   in-place, presents less risk and will generate a server of a known good
   configuration.
-2. There's a large number of missing updates, including security patches
+2. There's a large number of missing updates, including security patches and the
+version of Apache itself is old.
    - Recommendation - Ensure system is patched up to date. Again, this is a
    risky operation on a system that is so out of date, my recommendation would
    be to deploy a new server from the latest machine image and provision with
@@ -77,7 +78,7 @@ users.
 backend service should be stored in source control and be subject to it's own
 suite of unit tests. Application code and other binaries should not be stored in
 chef, rather pulled directly from source control or a repository such as
-artifactory.
+artifactory. *Outside the scope of this scenario.*
 
 Usage
 =====
@@ -89,4 +90,4 @@ following:
 kitchen test
 ```
 This will start an Ubuntu 12.04.5 Vagrant VM, use chef zero to provision it then
-perform the tests as per `tests/smoke/default/default_test.rb`.
+perform the tests as per `tests/smoke/default/*.rb`.

@@ -19,6 +19,7 @@ suites:
   - name: default
     run_list:
       - recipe[webserver::default]
+      - recipe[webserver::node_app]
     verifier:
       inspec_tests:
         - test/smoke/default

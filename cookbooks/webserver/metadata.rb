@@ -7,3 +7,4 @@ version '0.1.0'
 
 depends 'apt', '~> 6.0.1'
 depends 'httpd', '~> 0.4.5'
+depends 'nodejs', '~> 3.0.0'
