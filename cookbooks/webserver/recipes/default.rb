@@ -7,19 +7,19 @@
 include_recipe "apt::default"
 
 # create the www-data user group
-group 'www-data'
+group node['webserver']['run_group']
 
 # create the www-data user and add it to the www-data group, ensure the user
 # can't be used for interactive logins
-user 'www-data' do
-  group 'www-data'
+user node['webserver']['run_user'] do
+  group node['webserver']['run_group']
   system true
   shell '/bin/nologin'
 end
 
 # install the apache2 package and configure the leodis web service.
-httpd_service 'leodis' do
-  instance 'leodis'
+httpd_service node['webserver']['service_name'] do
+  instance node['webserver']['service_name']
   contact 'webmasters@leodis.ac.uk'
   servername 'localhost'
   run_user 'www-data'
@@ -28,7 +28,7 @@ httpd_service 'leodis' do
   keepalive true
   keepalivetimeout '5'
   hostname_lookups 'off'
-  listen_ports ['80']
+  listen_ports node['webserver']['listen_port']
   action [:create, :start]
 end
 
@@ -48,10 +48,10 @@ end
 
 # create the leodis vhost configuration and restart apache.
 # we could generalise the template further and use attributes.
-httpd_config 'leodis' do
-  config_name 'leodis-vhost'
-  instance 'leodis'
-  source 'leodis-vhost.erb'
-  notifies :restart, 'httpd_service[leodis]'
+httpd_config node['webserver']['service_name'] do
+  config_name "#{node['webserver']['service_name']}-vhost"
+  instance node['webserver']['service_name']
+  source "#{node['webserver']['service_name']}-vhost.erb"
+  notifies :restart, "httpd_service[#{node['webserver']['service_name']}]"
   action :create
 end
